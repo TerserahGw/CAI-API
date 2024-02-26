@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Utama Character AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Ensure the animation covers the entire viewport */
+            position: relative; /* Required for snow effect */
+        }
+
+        /* Animated background */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place it behind other content */
+            background: linear-gradient(45deg, #ADD8E6, #FFFFFF); /* Blue and white gradient background */
+            background-size: 400% 400%; /* Increase size to cover entire viewport */
+            animation: gradientAnimation 15s ease infinite; /* Adjust animation duration */
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Ensure content is on top of the background */
+            z-index: 1; /* Ensure content is on top of the background */
+            color: #333; /* Text color */
+        }
+
+        h1, h2 {
+            color: #007bff; /* Blue color for headings */
+            text-align: center;
+            margin-top: 20px; /* Adjust spacing */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px; /* Adjust spacing */
+        }
+
+        li {
+            margin-bottom: 30px; /* Adjust spacing */
+        }
+
+        strong {
+            color: #007bff; /* Blue color for strong text */
+        }
+
+        p {
+            color: #555; /* Darker gray color for paragraph text */
+            margin-bottom: 10px; /* Adjust spacing */
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Particle animation */
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: particleAnimation 5s linear infinite;
+        }
+
+        @keyframes particleAnimation {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0);
+            }
+            100% {
+                transform: translateY(500px) translateX(500px) rotate(720deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-background"></div> <!-- Add animated background -->
+    <div class="container">
+        <h1>Selamat datang di Character AI</h1>
+        <h2>Fitur:</h2>
+        <ul>
+            <li>
+                <strong>Cari Karakter:</strong>
+                <p>Mencari karakter dengan memasukkan kueri.</p>
+                <p>Contoh penggunaan: <em>/api/search?q=spiderman</em></p>
+                <p>Parameter yang dibutuhkan: <em>q</em> - Kata kunci untuk mencari karakter.</p>
+                <a href="/api/search">Buka Cari Karakter</a>
+            </li>
+            <li>
+                <strong>Mulai Obrolan Baru:</strong>
+                <p>Mulai sesi obrolan baru dengan karakter.</p>
+                <p>Contoh penggunaan: <em>/api/newchat?q=123</em></p>
+                <p>Parameter yang dibutuhkan: <em>q</em> - ID Karakter untuk memulai obrolan baru.</p>
+                <a href="/api/newchat">Buka Mulai Obrolan Baru</a>
+            </li>
+            <li>
+                <strong>Karakter yang Sedang Tren:</strong>
+                <p>Melihat karakter yang sedang tren saat ini.</p>
+                <p>Contoh penggunaan: <em>/api/trending</em></p>
+                <a href="/api/trending">Buka Karakter yang Sedang Tren</a>
+            </li>
+            <li>
+                <strong>Obrolan dengan Character AI:</strong>
+                <p>Terlibat dalam percakapan dengan karakter AI.</p>
+                <p>Contoh penggunaan: <em>/api/cai?charid=456&amp;message=Halo</em></p>
+                <p>Parameter yang dibutuhkan:</p>
+                <ul>
+                    <li><em>charid</em> - ID Karakter untuk berbicara.</li>
+                    <li><em>message</em> - Pesan yang akan dikirim ke karakter.</li>
+                </ul>
+                <a href="/api/cai">Buka Obrolan dengan Character AI</a>
+            </li>
+        </ul>
+    </div>
+    <!-- Particle animation -->
+    <div class="particle"></div>
+    <script>
+        // JavaScript for particle animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.container');
+            const numParticles = 50; // Number of particles
+
+            for (let i = 0; i < numParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * container.offsetWidth + 'px'; // Random horizontal position within container
+                particle.style.top = Math.random() * container.offsetHeight + 'px'; // Random vertical position within container
+                particle.style.animationDuration = Math.random() * 5 + 3 + 's'; // Random animation duration
+                container.appendChild(particle);
+            }
+        });
+    </script>
+</body>
+</html>

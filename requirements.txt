@@ -1,4 +1,4 @@
 Flask
 characterai
 typing_extensions
-websocket
+websockets

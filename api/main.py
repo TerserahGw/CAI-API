@@ -3,7 +3,7 @@ from characterai import PyCAI
 
 app = Flask(__name__, template_folder='.')
 
-client = PyCAI('aa8289e857fdaef5405744432e1fff62535e136f')
+client = PyCAI('d8d7adc3ee70fde7c8af1c8bf4fef226dd19108c')
 
 @app.route('/')
 def home():

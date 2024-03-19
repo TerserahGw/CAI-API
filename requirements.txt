@@ -1,4 +1,4 @@
 Flask
-characterai
+git+https://codeberg.org/kaiyga/CharacterAITestfork.git@main#egg=characterai==0.8.0
 typing_extensions
 websockets

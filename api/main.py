@@ -42,7 +42,20 @@ def rec_characters():
     rec = client.character.recommended()
 
     return jsonify(rec), 200, {'Content-Type': 'application/json; charset=utf-8'}
-    
+
+@app.route('/api/create')
+def create_character():
+    name = request.args.get('name', '')
+    greeting = request.args.get('greeting', '')
+    identifier = request.args.get('identifier', '')
+
+    if not name or not greeting or not identifier:
+        return jsonify({'error': 'Name, greeting, and identifier are required'}), 400
+
+    client.character.create(name, greeting, identifier)
+
+    return jsonify({'message': 'Character created successfully'}), 200, {'Content-Type': 'application/json; charset=utf-8'}
+
 @app.route('/api/cai')
 def cai_chat():
     char_id = request.args.get('charid', '')

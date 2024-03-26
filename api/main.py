@@ -38,8 +38,8 @@ def trending_characters():
     return jsonify(trending), 200, {'Content-Type': 'application/json; charset=utf-8'}
     
 @app.route('/api/rec')
-def trending_characters():
-    trending = client.character.recommended()
+def rec_characters():
+    rec = client.character.recommended()
 
     return jsonify(trending), 200, {'Content-Type': 'application/json; charset=utf-8'}
     

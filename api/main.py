@@ -41,7 +41,7 @@ def trending_characters():
 def rec_characters():
     rec = client.character.recommended()
 
-    return jsonify(trending), 200, {'Content-Type': 'application/json; charset=utf-8'}
+    return jsonify(rec), 200, {'Content-Type': 'application/json; charset=utf-8'}
     
 @app.route('/api/cai')
 def cai_chat():

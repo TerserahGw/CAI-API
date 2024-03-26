@@ -4,79 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KeiLa Character AI API</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Ensure the animation covers the entire viewport */
-            position: relative; /* Required for snow effect */
-        }
-
-        /* Animated background */
-        .animated-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Place it behind other content */
-            background: linear-gradient(45deg, #ADD8E6, #FFFFFF); /* Blue and white gradient background */
-            background-size: 400% 400%; /* Increase size to cover entire viewport */
-            animation: gradientAnimation 15s ease infinite; /* Adjust animation duration */
-        }
-
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            overflow: hidden;
+            position: relative;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh8-1tbl5xTSK8e0x44jvUfnbdOq9KfL_5dahR4RCiXQ&s'); /* Ubah background menjadi gambar */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center; /* Tengahkan background */
+            opacity: 0.8; /* Ubah opacity background */
         }
 
         .container {
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            background-color: rgba(255, 255, 255, 0.5);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative; /* Ensure content is on top of the background */
-            z-index: 1; /* Ensure content is on top of the background */
-            color: #333; /* Text color */
+            position: relative;
+            z-index: 1;
+            color: #333;
+            text-align: center; /* Pusatkan teks */
         }
 
         h1, h2 {
-            color: #007bff; /* Blue color for headings */
-            text-align: center;
-            margin-top: 20px; /* Adjust spacing */
+            color: #fff; /* Ubah warna teks menjadi putih */
         }
 
         ul {
             list-style-type: none;
             padding: 0;
-            margin-top: 20px; /* Adjust spacing */
+            margin-top: 20px;
+            text-align: left; /* Pusatkan teks ul */
         }
 
         li {
-            margin-bottom: 30px; /* Adjust spacing */
+            margin-bottom: 30px;
         }
 
         strong {
-            color: #007bff; /* Blue color for strong text */
+            color: #fff; /* Ubah warna teks menjadi putih */
         }
 
         p {
-            color: #555; /* Darker gray color for paragraph text */
-            margin-bottom: 10px; /* Adjust spacing */
+            color: #eee; /* Ubah warna teks menjadi lebih terang */
+            margin-bottom: 10px;
         }
 
         a {
-            color: #007bff;
+            color: #fff; /* Ubah warna teks menjadi putih */
             text-decoration: none;
         }
 
@@ -84,10 +68,9 @@
             text-decoration: underline;
         }
 
-        /* Particle animation */
         .particle {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+            background-color: rgba(255, 255, 255, 0.5);
             width: 5px;
             height: 5px;
             border-radius: 50%;
@@ -102,10 +85,24 @@
                 transform: translateY(500px) translateX(500px) rotate(720deg);
             }
         }
+
+        .copyright {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                max-width: 90%;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="animated-background"></div> <!-- Add animated background -->
     <div class="container">
         <h1>Selamat datang di Character AI</h1>
         <h2>Fitur:</h2>
@@ -113,71 +110,36 @@
             <li>
                 <strong>Cari Karakter:</strong>
                 <p>Mencari karakter dengan memasukkan kueri.</p>
-                <p>Contoh penggunaan: <em>/api/search?q=spiderman</em></p>
-                <p>Parameter yang dibutuhkan: <em>q</em> - Kata kunci untuk mencari karakter.</p>
-                <a href="/api/search">Buka Cari Karakter</a>
+                <a href="/api/search?q=">Buka Cari Karakter</a>
             </li>
             <li>
                 <strong>Mulai Obrolan Baru:</strong>
                 <p>Mulai sesi obrolan baru dengan karakter.</p>
-                <p>Contoh penggunaan: <em>/api/newchat?q=123</em></p>
-                <p>Parameter yang dibutuhkan: <em>q</em> - ID Karakter untuk memulai obrolan baru.</p>
-                <a href="/api/newchat">Buka Mulai Obrolan Baru</a>
+                <a href="/api/newchat?q=">Buka Mulai Obrolan Baru</a>
             </li>
             <li>
                 <strong>Karakter yang Sedang Tren:</strong>
                 <p>Melihat karakter yang sedang tren saat ini.</p>
-                <p>Contoh penggunaan: <em>/api/trending</em></p>
                 <a href="/api/trending">Buka Karakter yang Sedang Tren</a>
             </li>
             <li>
                 <strong>Karakter yang Direkomendasikan:</strong>
                 <p>Melihat karakter yang direkomendasikan untuk saat ini.</p>
-                <p>Contoh penggunaan: <em>/api/req</em></p>
                 <a href="/api/rec">Buka Karakter yang Direkomendasikan</a>
             </li>
             <li>
                 <strong>Buat Character AI:</strong>
                 <p>Membuat Char Anda Sendiri.</p>
-                <p>Contoh penggunaan: <em>/api/create?name=Hutao&amp;greeting=Halo&amp;identifier=Lembut,Sopan,Ramah</em></p>
-                <p>Parameter yang dibutuhkan:</p>
-                <ul>
-                    <li><em>name</em> - Nama Karakter.</li>
-                    <li><em>greeting</em> - Ucapan Salam.</li>
-                    <li><em>identifier</em> - Sifat Identik.</li>
-                </ul>
-                <a href="/api/create">Buka Obrolan dengan Character AI</a>
+                <a href="/api/create?name=&greeting=&identifier=">Buka Obrolan dengan Char AI</a>
             </li>
             <li>
                 <strong>Obrolan dengan Character AI:</strong>
                 <p>Terlibat dalam percakapan dengan karakter AI.</p>
-                <p>Contoh penggunaan: <em>/api/cai?charid=456&amp;message=Halo</em></p>
-                <p>Parameter yang dibutuhkan:</p>
-                <ul>
-                    <li><em>charid</em> - ID Karakter untuk berbicara.</li>
-                    <li><em>message</em> - Pesan yang akan dikirim ke karakter.</li>
-                </ul>
-                <a href="/api/cai">Buka Obrolan dengan Character AI</a>
+                <a href="/api/cai?charid=&message=">Buka Obrolan dengan Chat AI</a>
             </li>
         </ul>
     </div>
-    <!-- Particle animation -->
     <div class="particle"></div>
-    <script>
-        // JavaScript for particle animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.querySelector('.container');
-            const numParticles = 50; // Number of particles
-
-            for (let i = 0; i < numParticles; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                particle.style.left = Math.random() * container.offsetWidth + 'px'; // Random horizontal position within container
-                particle.style.top = Math.random() * container.offsetHeight + 'px'; // Random vertical position within container
-                particle.style.animationDuration = Math.random() * 5 + 3 + 's'; // Random animation duration
-                container.appendChild(particle);
-            }
-        });
-    </script>
+    <div class="copyright">&copy; KeiLaSenpai • CharacterAI</div>
 </body>
 </html>

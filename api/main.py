@@ -36,7 +36,13 @@ def trending_characters():
     trending = client.character.trending()
 
     return jsonify(trending), 200, {'Content-Type': 'application/json; charset=utf-8'}
+    
+@app.route('/api/rec')
+def trending_characters():
+    trending = client.character.recommended()()
 
+    return jsonify(trending), 200, {'Content-Type': 'application/json; charset=utf-8'}
+    
 @app.route('/api/cai')
 def cai_chat():
     char_id = request.args.get('charid', '')

@@ -16,11 +16,12 @@
             padding: 0;
             overflow: hidden;
             position: relative;
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh8-1tbl5xTSK8e0x44jvUfnbdOq9KfL_5dahR4RCiXQ&s'); /* Ubah background menjadi gambar */
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh8-1tbl5xTSK8e0x44jvUfnbdOq9KfL_5dahR4RCiXQ&s');
             background-size: cover;
             background-repeat: no-repeat;
-            background-position: center; /* Tengahkan background */
-            opacity: 0.8; /* Ubah opacity background */
+            background-position: center;
+            opacity: 0.8;
+            height: 100vh;
         }
 
         .container {
@@ -33,18 +34,18 @@
             position: relative;
             z-index: 1;
             color: #333;
-            text-align: center; /* Pusatkan teks */
+            text-align: center;
         }
 
         h1, h2 {
-            color: #fff; /* Ubah warna teks menjadi putih */
+            color: #fff;
         }
 
         ul {
             list-style-type: none;
             padding: 0;
             margin-top: 20px;
-            text-align: left; /* Pusatkan teks ul */
+            text-align: left;
         }
 
         li {
@@ -52,16 +53,16 @@
         }
 
         strong {
-            color: #fff; /* Ubah warna teks menjadi putih */
+            color: #fff;
         }
 
         p {
-            color: #eee; /* Ubah warna teks menjadi lebih terang */
+            color: #eee;
             margin-bottom: 10px;
         }
 
         a {
-            color: #fff; /* Ubah warna teks menjadi putih */
+            color: #fff;
             text-decoration: none;
         }
 
@@ -96,6 +97,28 @@
             font-size: 14px;
         }
 
+        .notification {
+            position: fixed;
+            top: 5%;
+            right: 20px;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 1);
+            color: #fff;
+            padding: 10px 10px;
+            border-radius: 5px;
+            z-index: 999;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+
         @media screen and (max-width: 600px) {
             .container {
                 max-width: 90%;
@@ -104,6 +127,7 @@
     </style>
 </head>
 <body>
+    <div class="overlay"></div>
     <div class="container">
         <h1>Selamat datang di Character AI</h1>
         <h2>Fitur:</h2>
@@ -142,5 +166,6 @@
     </div>
     <div class="particle"></div>
     <div class="copyright">&copy; KeiLaSenpai • CharacterAI</div>
+    <div class="notification">♦    Silahkan Pakai Dengan Bijak!</div>
 </body>
 </html>

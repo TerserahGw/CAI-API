@@ -14,7 +14,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* Prevent horizontal overflow */
+            overflow-x: hidden;
             position: relative;
             background-image: url('https://cdn.discordapp.com/attachments/1214367379883298868/1222199625822376037/wallpaperflare.com_wallpaper.jpg?ex=6615591a&is=6602e41a&hm=75c1a96e5690619cfb56fbee32e3e16fc712e8efd77ded01e360cc6a254b8d4a&');
             background-size: cover;
@@ -31,11 +31,11 @@
             padding: 20px;
             background-color: rgba(0, 0, 0, 0.35);
             color: #fff;
-            text-align: center; /* Posisi teks di tengah */
-            position: absolute; /* Menggunakan absolute position agar bisa menutupi seluruh area */
-            top: 52%; /* Posisi vertikal di tengah */
-            left: 50%; /* Posisi horizontal di tengah */
-            transform: translate(-50%, -50%); /* Menyesuaikan posisi untuk membuat kontainer berada di tengah */
+            text-align: center;
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         h1, h2 {
@@ -90,8 +90,8 @@
         }
 
         .notification {
-            position: fixed; /* Menggunakan fixed position untuk memposisikan notifikasi */
-            top: 55px; /* Menyesuaikan posisi notifikasi */
+            position: fixed;
+            top: 55px;
             right: 20px;
             background-color: rgba(0, 0, 0, 1);
             color: #fff;
@@ -100,10 +100,9 @@
             z-index: 1;
         }
 
-        /* Navigation bar styles */
         nav {
-            background-color: rgba(128, 0, 128, 0.50); /* Blusih-purple with 75% opacity */
-            backdrop-filter: blur(6px); /* 50% blur effect */
+            background-color: rgba(128, 0, 128, 0.50);
+            backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             padding: 10px 20px;
             display: flex;
@@ -113,7 +112,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 999; /* Ensure it's above other content */
+            z-index: 999;
         }
 
         nav h1 {
@@ -124,12 +123,12 @@
         .profile {
             display: flex;
             align-items: center;
-            margin-right: 20px; /* Membuat jarak antara foto profil dan nama */
+            margin-right: 20px;
         }
 
         .profile-name {
             color: #fff;
-            margin-left: 15px; /* Adjusted to separate name from profile image */
+            margin-left: 15px;
         }
 
         .profile img {
@@ -137,19 +136,18 @@
             height: 30px;
             border-radius: 50%;
             cursor: pointer;
-            margin-right: 12px;/* Change cursor to pointer on hover */
+            margin-right: 12px;
         }
 
         .copyright {
-            position: absolute; /* Menggunakan absolute position untuk memposisikan copyright */
-            bottom: 20px; /* Menyesuaikan posisi copyright */
+            position: absolute;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             color: rgba(255, 255, 255, 0.8);
             font-size: 14px;
         }
 
-        /* Animasi overlay */
         .overlay {
             position: fixed;
             top: 0;
@@ -157,24 +155,39 @@
             width: 100%;
             height: 100%;
             background-color: #000;
-            opacity: 1; /* opacity awal */
-            pointer-events: none; /* agar tidak mengganggu interaksi pengguna */
-            z-index: 1000; /* pastikan lebih tinggi dari konten lain */
-            animation: fadeOut 2s ease forwards; /* animasi memudar */
+            opacity: 1;
+            pointer-events: none;
+            z-index: 1000;
+            animation: fadeOut 2s ease forwards;
         }
 
         @keyframes fadeOut {
             0% {
-                opacity: 1; /* opacity awal */
+                opacity: 1;
             }
             100% {
-                opacity: 0; /* opacity akhir */
+                opacity: 0;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+
+        @media only screen and (min-width: 769px) {
+            .container {
+                width: 80%;
+                padding: 20px;
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav>
         <h1>Character AI API</h1>
         <div class="profile">
@@ -183,7 +196,6 @@
         </div>
     </nav>
 
-    <!-- Remaining content -->
     <div class="container">
         <h1>Selamat datang di Character AI</h1>
         <h2>Fitur:</h2>

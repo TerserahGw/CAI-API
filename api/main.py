@@ -6,6 +6,10 @@ app = Flask(__name__, template_folder='.')
 client = PyCAI('29422450f9ebdf864bb798a6f9796cdab019d9f1')
 
 @app.route('/')
+def welcome()
+    return render_template('index.html')
+
+@app.route('/api')
 def home():
     return render_template('home.html')
 

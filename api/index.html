@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome</title>
+<link rel="icon" href="https://cdn.discordapp.com/attachments/1214367379883298868/1222199626208383108/apple-touch-icon.png?ex=6615591a&is=6602e41a&hm=9ebb8117fcc8022df02e7a378881786a3af164cd8abdb180e8e8b0b73fb9db1c&"> 
+<style>
+  body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: hidden;
+  }
+  #welcomeText {
+    font-size: 36px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    animation: fadeIn 2s ease-out forwards, moveUp 2s ease-in-out 2s forwards, fadeOut 2s ease-in-out 2s forwards;
+  }
+  .dot {
+    position: absolute;
+    pointer-events: none;
+    animation: fadeIn 2s ease-out forwards, moveUp 2s ease-in-out 2s forwards, fadeOut 2s ease-in-out 2s forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes moveUp {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-50vh);
+    }
+  }
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<div id="welcomeText">Welcome</div>
+<script>
+  setTimeout(function(){
+    window.location.href = "/api/home";
+  }, 6000);
+  
+  // Add random dots with different sizes and colors
+  const dotSizes = ['small', 'medium', 'large'];
+  const dotColors = ['#ffffff', '#808080'];
+  const numDots = 50;
+  for (let i = 0; i < numDots; i++) {
+    const dot = document.createElement('div');
+    const size = dotSizes[Math.floor(Math.random() * dotSizes.length)];
+    const color = dotColors[Math.floor(Math.random() * dotColors.length)];
+    dot.className = 'dot ' + size;
+    dot.style.left = Math.random() * 100 + 'vw';
+    dot.style.top = Math.random() * 100 + 'vh';
+    dot.style.backgroundColor = color;
+    dot.style.opacity = '0.8'; // Adjust the opacity for better visibility
+    document.body.appendChild(dot);
+  }
+</script>
+</body>
+</html>

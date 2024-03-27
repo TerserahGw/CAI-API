@@ -14,27 +14,28 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow: auto;
+            overflow-x: hidden; /* Prevent horizontal overflow */
             position: relative;
             background-image: url('https://cdn.discordapp.com/attachments/1214367379883298868/1222199625822376037/wallpaperflare.com_wallpaper.jpg?ex=6615591a&is=6602e41a&hm=75c1a96e5690619cfb56fbee32e3e16fc712e8efd77ded01e360cc6a254b8d4a&');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.8;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         .container {
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            width: 80%;
             max-width: 800px;
-            margin: 20px auto;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 1;
-            color: #333;
-            text-align: center;
+            background-color: rgba(0, 0, 0, 0.35);
+            color: #fff;
+            text-align: center; /* Posisi teks di tengah */
+            position: absolute; /* Menggunakan absolute position agar bisa menutupi seluruh area */
+            top: 52%; /* Posisi vertikal di tengah */
+            left: 50%; /* Posisi horizontal di tengah */
+            transform: translate(-50%, -50%); /* Menyesuaikan posisi untuk membuat kontainer berada di tengah */
         }
 
         h1, h2 {
@@ -88,20 +89,10 @@
             }
         }
 
-        .copyright {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-        }
-
         .notification {
-            position: fixed;
-            top: 5%;
+            position: fixed; /* Menggunakan fixed position untuk memposisikan notifikasi */
+            top: 55px; /* Menyesuaikan posisi notifikasi */
             right: 20px;
-            transform: translateY(-50%);
             background-color: rgba(0, 0, 0, 1);
             color: #fff;
             padding: 10px 10px;
@@ -109,25 +100,67 @@
             z-index: 1;
         }
 
-        .overlay {
+        /* Navigation bar styles */
+        nav {
+            background-color: rgba(128, 0, 128, 0.50); /* Blusih-purple with 75% opacity */
+            backdrop-filter: blur(6px); /* 50% blur effect */
+            -webkit-backdrop-filter: blur(6px);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 0;
+            z-index: 999; /* Ensure it's above other content */
         }
 
-        @media screen and (max-width: 600px) {
-            .container {
-                max-width: 90%;
-            }
+        nav h1 {
+            color: #fff;
+            margin: 0;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-right: 20px; /* Membuat jarak antara foto profil dan nama */
+        }
+
+        .profile-name {
+            color: #fff;
+            margin-left: 15px; /* Adjusted to separate name from profile image */
+        }
+
+        .profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-right: 12px;/* Change cursor to pointer on hover */
+        }
+
+        .copyright {
+            position: absolute; /* Menggunakan absolute position untuk memposisikan copyright */
+            bottom: 20px; /* Menyesuaikan posisi copyright */
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
+    <!-- Navigation Bar -->
+    <nav>
+        <h1>Character AI API</h1>
+        <div class="profile">
+            <span class="profile-name">KeiLaSenpai</span>
+            <img src="https://cdn.discordapp.com/attachments/1214367379883298868/1219550574911946752/raiden-shogun.gif.gif?ex=6614f07b&is=66027b7b&hm=e45248089edbe9f1fe4e70e66c68f178a08886852e9b5bcd32939279d803f025&" alt="Foto Profil">
+        </div>
+    </nav>
+
+    <!-- Remaining content -->
     <div class="container">
         <h1>Selamat datang di Character AI</h1>
         <h2>Fitur:</h2>
@@ -150,7 +183,7 @@
             <li>
                 <strong>Karakter yang Direkomendasikan:</strong>
                 <p>Melihat karakter yang direkomendasikan untuk saat ini.</p>
-                <a href="/api/rec">Coba Karakter yang Direkomendasikan</a>
+                <a href="/api/rec">Coba Karakter yang Direkomendasi</a>
             </li>
             <li>
                 <strong>Buat Character AI:</strong>
@@ -165,7 +198,9 @@
         </ul>
     </div>
     <div class="particle"></div>
-    <div class="copyright">&copy; KeiLaSenpai • CharacterAI</div>
     <div class="notification">♦    Silahkan Pakai Dengan Bijak!</div>
+    <div class="overlay"></div>
+    <div class="copyright">&copy; KeiLaSenpai • CharacterAI</div>
 </body>
 </html>
+

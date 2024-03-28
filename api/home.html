@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KeiLa Character AI API</title>
+    <title>Character AI API - KeiLa</title>
     <link rel="icon" href="https://cdn.discordapp.com/attachments/1214367379883298868/1222199626208383108/apple-touch-icon.png?ex=6615591a&is=6602e41a&hm=9ebb8117fcc8022df02e7a378881786a3af164cd8abdb180e8e8b0b73fb9db1c&"> 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -24,80 +24,65 @@
         }
 
         .container {
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            width: 80%;
-            max-width: 800px;
-            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 25px;
             background-color: rgba(0, 0, 0, 0.35);
             color: #fff;
             text-align: center;
             position: absolute;
-            top: 52%;
+            top: calc(50% + 5px);
             left: 50%;
             transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 80vh;
+            overflow: auto;
         }
 
-        h1, h2 {
+        @media only screen and (orientation: landscape) {
+            .container {
+                width: 60vw;
+                height: 70vh;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 15px; /* Penyesuaian turun 5 pixel lagi */
+                font-size: 14px;
+            }
+        }
+
+        .container-item {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .container-item h3 {
             color: #fff;
+            margin-top: 0;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        li {
-            margin-bottom: 30px;
-        }
-
-        strong {
-            color: #fff;
-        }
-
-        p {
+        .container-item p {
             color: #eee;
             margin-bottom: 10px;
         }
 
-        a {
+        .container-item a {
             color: #fff;
             text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .particle {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.5);
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            animation: particleAnimation 5s linear infinite;
-        }
-
-        @keyframes particleAnimation {
-            0% {
-                transform: translateY(0) translateX(0) rotate(0);
-            }
-            100% {
-                transform: translateY(500px) translateX(500px) rotate(720deg);
-            }
-        }
-
-        .notification {
-            position: fixed;
-            top: 55px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 1);
-            color: #fff;
-            padding: 10px 10px;
+            background-color: #6A5ACD;
+            padding: 10px 20px;
             border-radius: 5px;
-            z-index: 1;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .container-item a:hover {
+            background-color: #836FFF;
         }
 
         nav {
@@ -139,13 +124,15 @@
             margin-right: 12px;
         }
 
-        .copyright {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
+        .notification {
+            position: fixed;
+            top: 55px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 1);
+            color: #fff;
+            padding: 10px 10px;
+            border-radius: 5px;
+            z-index: 1;
         }
 
         .overlay {
@@ -169,22 +156,6 @@
                 opacity: 0;
             }
         }
-
-        @media only screen and (max-width: 768px) {
-            .container {
-                width: 90%;
-                padding: 10px;
-                font-size: 14px;
-            }
-        }
-
-        @media only screen and (min-width: 769px) {
-            .container {
-                width: 80%;
-                padding: 20px;
-                font-size: 16px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -197,45 +168,44 @@
     </nav>
 
     <div class="container">
-        <h1>Selamat datang di Character AI</h1>
-        <h2>Fitur:</h2>
-        <ul>
-            <li>
-                <strong>Cari Karakter:</strong>
-                <p>Mencari karakter dengan memasukkan kueri.</p>
-                <a href="/api/search?q=">Coba Cari Karakter</a>
-            </li>
-            <li>
-                <strong>Mulai Obrolan Baru:</strong>
-                <p>Mulai sesi obrolan baru dengan karakter.</p>
-                <a href="/api/newchat?q=">Coba Mulai Obrolan Baru</a>
-            </li>
-            <li>
-                <strong>Karakter yang Sedang Tren:</strong>
-                <p>Melihat karakter yang sedang tren saat ini.</p>
-                <a href="/api/trending">Coba Karakter yang Sedang Tren</a>
-            </li>
-            <li>
-                <strong>Karakter yang Direkomendasikan:</strong>
-                <p>Melihat karakter yang direkomendasikan untuk saat ini.</p>
-                <a href="/api/rec">Coba Karakter yang Direkomendasi</a>
-            </li>
-            <li>
-                <strong>Buat Character AI:</strong>
-                <p>Membuat Char Anda Sendiri.</p>
-                <a href="/api/create?name=&greeting=&identifier=">Coba Obrolan dengan Char AI</a>
-            </li>
-            <li>
-                <strong>Obrolan dengan Character AI:</strong>
-                <p>Terlibat dalam percakapan dengan karakter AI.</p>
-                <a href="/api/cai?charid=&message=">Coba Obrolan dengan Chat AI</a>
-            </li>
-        </ul>
+        <div class="container-item">
+            <h3>Cari Karakter</h3>
+            <p>Mencari karakter dengan memasukkan kueri.</p>
+            <a href="/api/search?q=">Coba Sekarang</a>
+            <p><strong>Parameter Variable:</strong> q : (nama character)</p>
+        </div>
+        <div class="container-item">
+            <h3>Mulai Obrolan Baru</h3>
+            <p>Mulai sesi obrolan baru dengan karakter.</p>
+            <a href="/api/newchat?q=">Coba Sekarang</a>
+            <p><strong>Parameter Variable:</strong> q : (id character)</p>
+        </div>
+        <div class="container-item">
+            <h3>Karakter yang Sedang Tren</h3>
+            <p>Melihat karakter yang sedang tren saat ini.</p>
+            <a href="/api/trending">Coba Sekarang</a>
+        </div>
+        <div class="container-item">
+            <h3>Karakter yang Direkomendasikan</h3>
+            <p>Melihat karakter yang direkomendasikan untuk saat ini.</p>
+            <a href="/api/rec">Coba Sekarang</a>
+        </div>
+        <div class="container-item">
+            <h3>Buat Character AI</h3>
+            <p>Membuat Char Anda Sendiri.</p>
+            <a href="/api/create?name=&greeting=&identifier=">Coba Sekarang</a>
+            <p><strong>Parameter Variable:</strong> name, greeting, identifier</p>
+        </div>
+        <div class="container-item">
+            <h3>Obrolan dengan Character AI</h3>
+            <p>Terlibat dalam percakapan dengan karakter AI.</p>
+            <a href="/api/cai?charid=&message=">Coba Sekarang</a>
+            <p><strong>Parameter Variable:</strong> charid, message</p>
+        </div>
     </div>
     <div class="particle"></div>
-    <div class="notification" onclick="window.location.href='https://chat.whatsapp.com/CjxuywuwOglE7p2tFBqdH3'">♦    Info: Gabung Ke Grup Whatsapp!</div>
+    <div class="notification" onclick="window.location.href='https://chat.whatsapp.com/CjxuywuwOglE7p2tFBqdH3'">♦  Gabung Ke Grup Whatsapp!</div>
     <div class="overlay"></div>
-    <div class="copyright">&copy; KeiLaSenpai • CharacterAI</div>
+    <div class="copyright" style="color: rgba(255, 255, 255, 0.8); font-size: 14px; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);">&copy; KeiLaSenpai • CharacterAI</div>
 </body>
 </html>
-

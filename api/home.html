@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Character AI API - KeiLa</title>
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/1214367379883298868/1222199626208383108/apple-touch-icon.png?ex=6615591a&is=6602e41a&hm=9ebb8117fcc8022df02e7a378881786a3af164cd8abdb180e8e8b0b73fb9db1c&"> 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1214367379883298868/1222199626208383108/apple-touch-icon.png?ex=6615591a&is=6602e41a&hm=9ebb8117fcc8022df02e7a378881786a3af164cd8abdb180e8e8b0b73fb9db1c&">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,33 +21,25 @@
 
         .container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 25px;
+            gap: 10px;
+            padding: 25px; /* Penyesuaian turun 5 pixel lagi */
             background-color: rgba(0, 0, 0, 0.35);
             color: #fff;
             text-align: center;
             position: absolute;
-            top: calc(50% + 5px);
+            top: 52.5%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 80vw;
             height: 80vh;
             overflow: auto;
+            backdrop-filter: blur(10px); /* Efek blur */
+            max-width: 600px; /* Max grid 3x2 */
         }
 
         @media only screen and (orientation: landscape) {
             .container {
-                width: 60vw;
-                height: 70vh;
-            }
-        }
-
-        @media only screen and (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-                padding: 15px; /* Penyesuaian turun 5 pixel lagi */
-                font-size: 14px;
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -74,7 +62,7 @@
         .container-item a {
             color: #fff;
             text-decoration: none;
-            background-color: #6A5ACD;
+            background-color: #6A5ACD; /* Warna ungu kebiruan */
             padding: 10px 20px;
             border-radius: 5px;
             display: inline-block;
@@ -82,7 +70,7 @@
         }
 
         .container-item a:hover {
-            background-color: #836FFF;
+            background-color: #836FFF; /* Warna ungu kebiruan saat dihover */
         }
 
         nav {
@@ -166,19 +154,23 @@
             <img src="https://cdn.discordapp.com/attachments/1214367379883298868/1219550574911946752/raiden-shogun.gif.gif?ex=6614f07b&is=66027b7b&hm=e45248089edbe9f1fe4e70e66c68f178a08886852e9b5bcd32939279d803f025&" alt="Foto Profil">
         </div>
     </nav>
+    <audio controls autoplay loop>
+        <source src="https://rr4---sn-npoldn7s.googlevideo.com/videoplayback?expire=1711660208&amp;ei=UIgFZur4HbfSi9oP66-PuAo&amp;ip=172.104.236.225&amp;id=o-ALetLRS6nm-SeKUdqwTtG0qPjcIP0Q3NKUzGjjMYqz0e&amp;itag=140&amp;source=youtube&amp;requiressl=yes&amp;xpc=EgVo2aDSNQ%3D%3D&amp;vprv=1&amp;svpuc=1&amp;mime=audio%2Fmp4&amp;gir=yes&amp;clen=4206232&amp;dur=259.854&amp;lmt=1632200496172248&amp;keepalive=yes&amp;fexp=51141541&amp;c=ANDROID&amp;txp=5532434&amp;sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cvprv%2Csvpuc%2Cmime%2Cgir%2Cclen%2Cdur%2Clmt&amp;sig=AJfQdSswRQIhAIayv0JTiKK-FKGoX45LeKYSdpg9-ZbHUZzupfHBIe-xAiBbLzYf_cq-nXYcCrIKOZ_ASfGobraewmDzqkRbwobEBw%3D%3D&amp;title=Duel+in+the+Mist+-+Inazuma+OST+Battle+Theme+MV%EF%BD%9CGenshin+Impact%22&amp;rm=sn-5hnese76&amp;req_id=ff4470a91f6ca3ee&amp;redirect_counter=2&amp;cm2rm=sn-2uuxa3vh-ngbs7l&amp;cms_redirect=yes&amp;cmsv=e&amp;ipbypass=yes&amp;mh=6f&amp;mip=180.253.69.42&amp;mm=29&amp;mn=sn-npoldn7s&amp;ms=rdu&amp;mt=1711638297&amp;mv=m&amp;mvi=4&amp;pl=20&amp;lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&amp;lsig=ALClDIEwRQIgRXhWfwkwYJUzQ0z5F_dZXWm3vOe2B0FScBDsH3FlTC8CIQCej-6PPYMc30xEtzFT4vgH15hoLl0ajcCz3O1IXHGbvA%3D%3D" type="audio/mp4">
+          Your browser does not support the audio element.
+    </audio>
 
     <div class="container">
         <div class="container-item">
             <h3>Cari Karakter</h3>
             <p>Mencari karakter dengan memasukkan kueri.</p>
             <a href="/api/search?q=">Coba Sekarang</a>
-            <p><strong>Parameter Variable:</strong> q : (nama character)</p>
+            <p><strong>Parameter Variable:</strong> q : (search adalah nama character)</p>
         </div>
         <div class="container-item">
             <h3>Mulai Obrolan Baru</h3>
             <p>Mulai sesi obrolan baru dengan karakter.</p>
             <a href="/api/newchat?q=">Coba Sekarang</a>
-            <p><strong>Parameter Variable:</strong> q : (id character)</p>
+            <p><strong>Parameter Variable:</strong> q : (newchat adalah id character)</p>
         </div>
         <div class="container-item">
             <h3>Karakter yang Sedang Tren</h3>

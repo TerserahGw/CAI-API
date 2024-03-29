@@ -47,17 +47,6 @@ def rec_characters():
 
     return jsonify(rec), 200, {'Content-Type': 'application/json; charset=utf-8'}
 
-@app.route('/api/info')
-def info_character():
-    char_id = request.args.get('id', '')
-    
-    if not char_id:
-        return jsonify({'error': 'Character ID is required'}), 400
-
-    info = client.character.info(char_id)
-
-    return jsonify(info), 200, {'Content-Type': 'application/json; charset=utf-8'}
-
 @app.route('/api/cai')
 def cai_chat():
     char_id = request.args.get('charid', '')
@@ -65,8 +54,6 @@ def cai_chat():
 
     if not char_id:
         return jsonify({'error': 'Character ID is required'}), 400
-    if not message:
-        return jsonify({'error': 'Message is required'}), 400
 
     chat = client.chat.get_chat(char_id)
     participants = chat['participants']

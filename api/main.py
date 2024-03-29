@@ -13,6 +13,10 @@ def welcome():
 def home():
     return render_template('home.html')
 
+@app.route('/home')
+def api():
+    return render_template('api.html')
+    
 @app.route('/api/search')
 def search_character():
     query = request.args.get('q', '')

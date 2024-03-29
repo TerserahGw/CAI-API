@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeiLa API - Testing</title>
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1214367379883298868/1222199626208383108/apple-touch-icon.png?ex=6615591a&is=6602e41a&hm=9ebb8117fcc8022df02e7a378881786a3af164cd8abdb180e8e8b0b73fb9db1c&"> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://cdn.discordapp.com/attachments/1214367379883298868/1222199625822376037/wallpaperflare.com_wallpaper.jpg?ex=6615591a&is=6602e41a&hm=75c1a96e5690619cfb56fbee32e3e16fc712e8efd77ded01e360cc6a254b8d4a&');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(162, 155, 254, 0.4); /* Opacity 40% */
+            backdrop-filter: blur(5px); /* Blur 5px */
+            color: #fff;
+            transition: left 0.5s ease;
+            z-index: 1001; 
+            padding-bottom: 100px; /* Menyesuaikan ruang untuk tombol WhatsApp dan YouTube serta hak cipta */
+        }
+
+        .sidebar.show {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+        }
+
+        .sidebar-header h3 {
+            margin-left: 10px;
+        }
+
+        #menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: inherit;
+            font-size: 24px;
+        }
+
+        #menu-items {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0; /* Atur margin atas dan bawah */
+        }
+
+        #menu-items li {
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.2); /* Warna putih ke abu-abu */
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        #menu-items li:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Efek hover */
+        }
+
+        #menu-items li:last-child {
+            margin-bottom: 0; /* Tidak ada margin bawah untuk elemen terakhir */
+        }
+
+        .footer-buttons {
+            position: absolute;
+            bottom: 20px; /* Adjusted the position to be above the copyright */
+            left: 20px;
+            display: flex;
+            align-items: center;
+            z-index: 1002; /* Ensure it's above sidebar */
+        }
+
+        .footer-buttons button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .copyright {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            z-index: 1002; /* Ensure it's above sidebar */
+        }
+
+        footer {
+            background-color: rgba(51, 51, 51, 0.5);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            height: 40px; /* Tinggi footer */
+            z-index: 1000; /* Z-index ditingkatkan agar footer tetap di atas */
+        }
+
+        
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: rgba(128, 0, 128, 0.2);
+            backdrop-filter: blur(7px);
+            z-index: 1000; 
+        }
+
+        .navbar-left,
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-right {
+            justify-content: flex-end;
+        }
+
+        .navbar-left h3 {
+            margin: 0;
+        }
+
+        .container {
+            margin-top: 60px; 
+            margin-bottom: 40px; 
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            grid-gap: 20px;
+        }
+
+        .container-item {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .container-item h3 {
+            margin-top: 0;
+        }
+
+        .container-item p {
+            margin-bottom: 10px;
+        }
+
+        .container-item a {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+            text-decoration: none;
+            background-color: purple; 
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .container-item a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes slideRight {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="navbar-left">
+                <button id="menu-btn"><i class='bx bx-menu'></i></button>
+                <h3>KeiLa API</h3>
+            </div>
+            <div class="navbar-right">
+                <div class="footer-buttons">
+                    <!-- Tombol WhatsApp dan YouTube -->
+                    <button style="background-color: transparent; border: none; cursor: pointer;" onclick="openUrl('https://wa.me/your_whatsapp_url_here')"><i class='bx bxl-whatsapp-square' style="font-size: 24px;"></i></button>
+                    <button style="background-color: transparent; border: none; cursor: pointer;" onclick="openUrl('https://www.youtube.com/your_youtube_url_here')"><i class='bx bxl-youtube' style="font-size: 24px;"></i></button>
+                </div>
+                <div class="copyright">
+                    <p>© KeiLaSenpai</p>
+                </div>
+            </div>
+        </div>
+        <ul id="menu-items">
+            <li onclick="changeContent('Dashboard')">Dashboard</li>
+            <li onclick="changeContent('CharacterAI1')">CharacterAI 1</li>
+            <li onclick="changeContent('CharacterAI2')">CharacterAI 2</li>
+            <li onclick="changeContent('OtherAPI')">Other API</li>
+        </ul>
+    </div>
+    <header>
+        <div class="navbar-left">
+            <button id="sidebar-toggle"><i class='bx bx-menu'></i></button>
+        </div>
+        <div class="navbar-right">
+            <h3 id="content-title">Dashboard</h3>
+        </div>
+    </header>
+    <main>
+        <div class="container" id="content">
+            <!-- Isi konten akan diperbarui oleh JavaScript -->
+        </div>
+    </main>
+    <footer>
+        <p>Copyright by KeiLaSenpai</p>
+    </footer>
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const menuBtn = document.getElementById('menu-btn');
+        const contentTitle = document.getElementById('content-title');
+        let currentMenu = null;
+
+        function changeContent(menu) {
+            if (menu === currentMenu) {
+                return;
+            }
+            currentMenu = menu;
+            contentTitle.innerText = menu; 
+            if (menu === 'Dashboard') {
+            content.innerHTML = `
+                <div class="container">
+                    <div class="container-item">
+                        <h3>Informasi Penggunaan API</h3>
+                        <p>Gunakanlah API Saya Dengan Bijak, Tolong Beri kredit Saat Memakai Api Saya, Api Ini Bisa Untuk Berbagai Macam Hal Contohnya Bot Telegram,Bot Whatsapp, Bot Discord, Website, Dll</p>
+                        <p>Mungkin Kedepannya Akan Saya Tambahkan Berbagai Macam Fitur Dan Memperbaharui UI. Untuk Mensupport Saya Berikan Star Pada Github Saya</p>
+                    </div>
+                    <div class="container-item">
+                            <h3>Back To Simpel UI</h3>
+                            <p>Kembali Ke Tampilan Lama!.</p>
+                            <a href="/api">Let's Go!</a>
+                        </div>
+                </div>
+            `;
+        } else if (menu === 'CharacterAI1') {
+                content.innerHTML = `
+                    <div class="container">
+                        <div class="container-item">
+                            <h3>Cari Karakter</h3>
+                            <p>Mencari karakter dengan memasukkan kueri.</p>
+                            <a href="/api/search?q=">Coba Sekarang</a>
+                            <p><strong>Parameter Variable:</strong> q : (search adalah nama character)</p>
+                        </div>
+                        <div class="container-item">
+                            <h3>Mulai Obrolan Baru</h3>
+                            <p>Mulai sesi obrolan baru dengan karakter.</p>
+                            <a href="/api/newchat?q=">Coba Sekarang</a>
+                            <p><strong>Parameter Variable:</strong> q : (newchat adalah id character)</p>
+                        </div>
+                        <div class="container-item">
+                            <h3>Karakter yang Sedang Tren</h3>
+                            <p>Melihat karakter yang sedang tren saat ini.</p>
+                            <a href="/api/trending">Coba Sekarang</a>
+                        </div>
+                        <div class="container-item">
+                            <h3>Karakter yang Direkomendasikan</h3>
+                            <p>Melihat karakter yang direkomendasikan untuk saat ini.</p>
+                            <a href="/api/rec">Coba Sekarang</a>
+                        </div>
+                        <div class="container-item">
+                            <h3>Buat Character AI</h3>
+                            <p>Membuat Char Anda Sendiri.</p>
+                            <a href="/api/create?name=&greeting=&identifier=">Coba Sekarang</a>
+                            <p><strong>Parameter Variable:</strong> name, greeting, identifier</p>
+                        </div>
+                        <div class="container-item">
+                            <h3>Obrolan dengan Character AI</h3>
+                            <p>Terlibat dalam percakapan dengan karakter AI.</p>
+                            <a href="/api/cai?charid=&message=">Coba Sekarang</a>
+                            <p><strong>Parameter Variable:</strong> charid, message</p>
+                        </div>
+                    </div>
+                `;
+            } else if (menu === 'CharacterAI2') {
+                content.innerHTML = `
+                    <div class="container">
+                        <div class="container-item">
+                            <h3>Cooming Soon</h3>
+                            <p>Sedang Dikerjakan, Mohon Pakai V1</p>
+                            <a href="/api?q=">Coba CharacterAI 1</a>
+                            <p><strong>Have Fun</strong></p>
+                        </div>
+                    </div>
+                `;
+            } else if (menu === 'OtherAPI') {
+                content.innerHTML = `
+                    <div class="container">
+                        <div class="container-item">
+                            <h3>YTDL</h3>
+                            <p>Mengunduh video YouTube dengan URL yang diberikan.</p>
+                            <a href="https://keila-api.vercel.app/youtube?q=">Coba Sekarang</a>
+                            <p><strong>Parameter Variable:</strong> q : (URL video YouTube)</p>
+                        </div>
+                        <div class="container-item">
+                            <h3>YTPlay</h3>
+                            <p>Memutar audio YouTube dengan judul yang diberikan.</p>
+                            <a href="https://keila-api.vercel.app/play?q=">Coba Sekarang</a>
+                            <p><strong>Parameter Variable:</strong> q : (judul lagu atau video YouTube)</p>
+                        </div>
+                        <div class="container-item">
+                            <h3>Pixiv</h3>
+                            <p>Mencari gambar di Pixiv berdasarkan kata kunci.</p>
+                            <a href="https://keila-api.vercel.app/pixiv?q=">Coba Sekarang</a>
+                            <p><strong>Parameter Variable:</strong> q : (kata kunci pencarian)</p>
+                        </div>
+                    </div>
+                `;
+            }
+            sidebar.classList.remove('show');
+        }
+
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('show');
+        });
+
+        menuBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('show');
+        });
+
+        function openUrl(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>

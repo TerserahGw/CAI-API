@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="api.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="navbar-left">
+                <button id="menu-btn"><i class='bx bx-menu'></i></button>
+                <h3>KeiLa API</h3>
+            </div>
+        </div>
+        <ul id="menu-items">
+            <li onclick="changeContent('Dashboard')">Dashboard</li>
+            <li onclick="changeContent('CharacterAI1')">CharacterAI 1</li>
+            <li onclick="changeContent('CharacterAI2')">CharacterAI 2</li>
+            <li onclick="changeContent('OtherAPI')">Other API</li>
+        </ul>
+        <div class="footer-buttons">
+            <button style="background-color: transparent; border: none; cursor: pointer;" onclick="openUrl('https://wa.me/your_whatsapp_url_here')"><i class='bx bxl-whatsapp-square' style="font-size: 24px;"></i></button>
+            <button style="background-color: transparent; border: none; cursor: pointer;" onclick="openUrl('https://www.youtube.com/your_youtube_url_here')"><i class='bx bxl-youtube' style="font-size: 24px;"></i></button>
+        </div>
+    </div>
+    <header>
+        <div class="navbar-left">
+            <button id="sidebar-toggle"><i class='bx bx-menu'></i></button>
+        </div>
+        <div class="navbar-right">
+            <h3 id="content-title">Dashboard</h3>
+        </div>
+    </header>
+    <main>
+        <div class="container" id="content">
+            <!-- Content will be updated by JavaScript -->
+        </div>
+    </main>
+    <footer>
+        <p>Copyright by KeiLaSenpai</p>
+    </footer>
+    <script src="api.js"></script>
+</body>
+</html>

@@ -11,11 +11,11 @@ def welcome():
 
 @app.route('/api')
 def home():
-    return render_template('home.html')
+    return render_template('oldhome.html')
 
 @app.route('/home')
 def api():
-    return render_template('web/home.html')
+    return render_template('home.html')
     
 @app.route('/api/search')
 def search_character():

@@ -1,0 +1,199 @@
+/* CSS styles */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://cdn.discordapp.com/attachments/1214367379883298868/1222199625822376037/wallpaperflare.com_wallpaper.jpg?ex=6615591a&is=6602e41a&hm=75c1a96e5690619cfb56fbee32e3e16fc712e8efd77ded01e360cc6a254b8d4a&');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; /* Gambar latar belakang berada di tengah */
+}
+
+.sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: rgba(162, 155, 254, 0.4);
+    backdrop-filter: blur(5px);
+    color: #fff;
+    transition: left 0.5s ease;
+    z-index: 1001;
+    padding-bottom: 100px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Shadow */
+}
+
+.sidebar.show {
+    left: 0;
+}
+
+.sidebar-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+
+.sidebar-header h3 {
+    margin-left: 10px;
+}
+
+#menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font-size: 24px;
+}
+
+#menu-items {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+#menu-items li {
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#menu-items li:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#menu-items li:last-child {
+    margin-bottom: 0;
+}
+
+.footer-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    z-index: 1002;
+}
+
+.footer-buttons button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.footer-buttons button:last-child {
+    margin-right: 0; /* Remove margin-right for the last button */
+}
+
+footer {
+    background-color: rgba(51, 51, 51, 0.5);
+    backdrop-filter: blur(5px);
+    color: #fff;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    z-index: 1000;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: rgba(75, 0, 130, 0.3); /* Warna biru keunguan dengan opacity 30% */
+    backdrop-filter: blur(7px); /* Efek blur 7px */
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow */
+}
+
+.navbar-left h3 {
+    margin: 0;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-right {
+    justify-content: flex-end;
+}
+
+.container {
+    margin-top: 60px; 
+    margin-bottom: 40px; 
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(calc(33.333% - 20px), 1fr)); /* Maksimal tiga grid dalam satu baris */
+    grid-gap: 20px;
+    justify-content: center; /* Pusatkan grid secara horizontal */
+}
+
+.container-item {
+    background-color: rgba(128, 0, 128, 0.3);
+    backdrop-filter: blur(6px);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-item h3 {
+    font-size: 2vw; /* Ukuran font responsif */
+}
+
+.container-item p {
+    font-size: 1.5vw; /* Ukuran font responsif */
+    margin-bottom: 1vw;
+}
+
+.container-item a {
+    display: inline-block;
+    font-size: 1.5vw; /* Ukuran font responsif */
+    padding: 1vw 2vw;
+    margin-bottom: 1vw;
+    background-color: purple;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.container-item a:hover {
+    background-color: rgba(128, 0, 128, 0.6);
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        grid-template-columns: repeat(auto-fit, minmax(calc(50% - 20px), 1fr)); /* Maksimal dua grid dalam satu baris pada layar kecil */
+    }
+}
+
+@keyframes slideRight {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

@@ -15,7 +15,7 @@ def home():
 
 @app.route('/home')
 def api():
-    return render_template('api.html')
+    return render_template('web/home.html')
     
 @app.route('/api/search')
 def search_character():

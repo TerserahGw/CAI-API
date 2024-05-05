@@ -17,11 +17,12 @@
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
-                background-image: url("https://cdn.discordapp.com/attachments/1214367379883298868/1222199625822376037/wallpaperflare.com_wallpaper.jpg?ex=6615591a&is=6602e41a&hm=75c1a96e5690619cfb56fbee32e3e16fc712e8efd77ded01e360cc6a254b8d4a&");
+                /* Hapus URL latar belakang */
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 background-position: center;
+                transition: background-image 0.5s ease;
             }
 
             .sidebar {
@@ -409,6 +410,27 @@
             document.addEventListener("DOMContentLoaded", function () {
                 changeContent("Dashboard");
             });
+
+            function changeBackground() {
+                var body = document.querySelector("body");
+                var windowHeight = window.innerHeight;
+                var windowWidth = window.innerWidth;
+
+                // Define the URLs for background images
+                var backgroundImage1 = "https://telegra.ph/file/90688010dd8787ab7bd69.jpg"; // URL for background image when height is greater than width
+                var backgroundImage2 = "https://telegra.ph/file/8b789048b02eeb7ca1df8.jpg"; // URL for background image when width is greater than height
+
+                // Check if height is greater than width
+                if (windowHeight > windowWidth) {
+                    body.style.backgroundImage = "url('" + backgroundImage1 + "')";
+                } else {
+                    body.style.backgroundImage = "url('" + backgroundImage2 + "')";
+                }
+            }
+
+            // Call the function when the page loads and when the window is resized
+            window.onload = changeBackground;
+            window.onresize = changeBackground;
         </script>
     </body>
 </html>

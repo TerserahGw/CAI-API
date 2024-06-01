@@ -4,6 +4,11 @@
         "usage": 0,
         "last_reset": "2023-06-01"
     },
+    "FreeTrial": {
+        "limit": 25,
+        "usage": 0,
+        "last_reset": "2023-06-01"
+    },
     "PunyaOwnNihBos": {
         "limit": -1,
         "usage": 0,

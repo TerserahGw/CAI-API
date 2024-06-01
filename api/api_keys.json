@@ -1,0 +1,22 @@
+{
+    "GakModalYa": {
+        "limit": 2500,
+        "usage": 0,
+        "last_reset": "2023-06-01"
+    },
+    "PunyaOwnNihBos": {
+        "limit": -1,
+        "usage": 0,
+        "last_reset": "2023-06-01"
+    },
+    "CAI2024": {
+        "limit": 2500,
+        "usage": 0,
+        "last_reset": "2023-06-01"
+    },
+    "UPPremiumCAI": {
+        "limit": 10000,
+        "usage": 0,
+        "last_reset": "2023-06-01"
+    }
+}

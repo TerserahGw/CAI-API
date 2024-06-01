@@ -1,4 +1,6 @@
 Flask
 git+https://codeberg.org/kaiyga/CharacterAITestfork.git@main#egg=characterai==0.8.0
+apscheduler==3.10.4
+pytz==2023.3
 typing_extensions
 websockets

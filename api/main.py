@@ -55,9 +55,10 @@ schedule_reset_task()
 
 @app.before_request
 def before_request():
-    api_key = request.args.get('apikey')
-    if not api_key or not check_api_key(api_key):
-        return jsonify({'error': 'Valid API key is required or usage limit exceeded'}), 403
+    if request.path.startswith('/api'):
+        api_key = request.args.get('apikey')
+        if not api_key or not check_api_key(api_key):
+            return jsonify({'error': 'Valid API key is required or usage limit exceeded'}), 403
 
 @app.route('/')
 def welcome():

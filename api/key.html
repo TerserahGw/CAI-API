@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Keys</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h2>API Keys</h2>
+<table>
+    <tr>
+        <th>Key</th>
+        <th>Cooldown (seconds)</th>
+        <th>Cooldown Status</th>
+    </tr>
+    <tr>
+        <td>GakModalYa</td>
+        <td>90</td>
+        <td id="status_GakModalYa">-</td>
+    </tr>
+    <tr class="hidden">
+        <td>PunyaOwnNihBos</td>
+        <td>0</td>
+        <td id="status_PunyaOwnNihBos">-</td>
+    </tr>
+    <tr class="hidden">
+        <td>CAI2024</td>
+        <td>30</td>
+        <td id="status_CAI2024">-</td>
+    </tr>
+    <tr class="hidden">
+        <td>UPPremiumCAI</td>
+        <td>2</td>
+        <td id="status_UPPremiumCAI">-</td>
+    </tr>
+</table>
+
+<button id="secretBtn">Secret Key</button>
+
+<script>
+    document.getElementById("secretBtn").addEventListener("click", function() {
+        var passCode = prompt("Please enter the Pass Code", "");
+        if (passCode === "LuWibuSih") {
+            document.querySelectorAll(".hidden").forEach(function(element) {
+                element.style.display = "table-row";
+            });
+        } else {
+            alert("Pass Code incorrect!");
+        }
+    });
+
+    function startCountdown(key, cooldown) {
+        var statusElement = document.getElementById("status_" + key);
+        statusElement.innerText = "Busy"; // Set to Busy initially
+        var remainingTime = cooldown;
+        var interval = setInterval(function() {
+            remainingTime--;
+            if (remainingTime <= 0) {
+                clearInterval(interval);
+                statusElement.innerText = "Active";
+            } else {
+                var minutes = Math.floor(remainingTime / 60);
+                var seconds = remainingTime % 60;
+                statusElement.innerText = minutes + "m " + seconds + "s";
+            }
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>

@@ -1,64 +1,37 @@
 from flask import Flask, jsonify, request, render_template
 from characterai import PyCAI
-import json
-import os
 from datetime import datetime, timedelta
-from apscheduler.schedulers.background import BackgroundScheduler
-import pytz
 
 app = Flask(__name__, template_folder='.')
 
 client = PyCAI('29422450f9ebdf864bb798a6f9796cdab019d9f1')
 
-# Load API keys from JSON file
-def load_api_keys():
-    if not os.path.exists('api_keys.json'):
-        return {}
-    with open('api_keys.json', 'r') as f:
-        return json.load(f)
+# Define keys and their cooldown periods (in seconds)
+KEYS = {
+    "GakModalYa": {"cooldown": 10, "last_used": datetime.min},
+    "PunyaOwnNihBos": {"cooldown": 0, "last_used": datetime.min},  # No cooldown
+    "CAI2024": {"cooldown": 10, "last_used": datetime.min},
+    "UPPremiumCAI": {"cooldown": 2, "last_used": datetime.min}
+}
 
-# Save API keys to JSON file
-def save_api_keys(api_keys):
-    with open('api_keys.json', 'w') as f:
-        json.dump(api_keys, f, indent=4)
-
-# Check if the API key is valid and update usage
-def check_api_key(api_key):
-    api_keys = load_api_keys()
-    if api_key in api_keys:
-        if api_keys[api_key]['limit'] == -1 or api_keys[api_key]['usage'] < api_keys[api_key]['limit']:
-            if api_keys[api_key]['limit'] != -1:
-                api_keys[api_key]['usage'] += 1
-            save_api_keys(api_keys)
+# Check if the key is valid and not in cooldown period
+def check_key(key):
+    if key in KEYS:
+        now = datetime.now()
+        last_used = KEYS[key]['last_used']
+        cooldown = timedelta(seconds=KEYS[key]['cooldown'])
+        
+        if key == "PunyaOwnNihBos" or now - last_used >= cooldown:
+            KEYS[key]['last_used'] = now
             return True
     return False
 
-# Reset usage count for all API keys at 12 PM WIB
-def reset_api_keys():
-    api_keys = load_api_keys()
-    for key in api_keys:
-        api_keys[key]['usage'] = 0
-    save_api_keys(api_keys)
-    print("API keys reset at 12 PM WIB")
-
-# Schedule the reset task
-def schedule_reset_task():
-    scheduler = BackgroundScheduler()
-    wib = pytz.timezone('Asia/Jakarta')
-    reset_time = datetime.now(wib).replace(hour=12, minute=0, second=0, microsecond=0)
-    if reset_time < datetime.now(wib):
-        reset_time += timedelta(days=1)
-    scheduler.add_job(reset_api_keys, 'interval', days=1, start_date=reset_time)
-    scheduler.start()
-
-schedule_reset_task()
-
 @app.before_request
 def before_request():
-    if request.path.startswith('/api'):
-        api_key = request.args.get('apikey')
-        if not api_key or not check_api_key(api_key):
-            return jsonify({'error': 'Valid API key is required or usage limit exceeded'}), 403
+    if request.path.startswith('/api') and request.path != '/api':
+        key = request.args.get('key')
+        if not key or not check_key(key):
+            return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
 
 @app.route('/')
 def welcome():

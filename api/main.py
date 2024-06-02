@@ -7,28 +7,29 @@ app = Flask(__name__, template_folder='.')
 
 client = PyCAI('29422450f9ebdf864bb798a6f9796cdab019d9f1')
 
-# Configure logging
 logging.basicConfig(level=logging.DEBUG)
 
-# Define keys and their cooldown periods (in seconds)
 KEYS = {
-    "GakModalYa": {"cooldown": 90, "last_used": datetime.min},
-    "PunyaOwnNihBos": {"cooldown": 0, "last_used": datetime.min},  # No cooldown
-    "CAI2024": {"cooldown": 30, "last_used": datetime.min},
-    "UPPremiumCAI": {"cooldown": 2, "last_used": datetime.min}
+    "GUESTAI": {"limit": 5, "reset_time": timedelta(seconds=15), "count": 0, "last_reset": datetime.now()},
+    "OWNONLY": {"limit": float('inf'), "reset_time": timedelta(seconds=0), "count": 0, "last_reset": datetime.now()},
+    "CAI2024": {"limit": 50, "reset_time": timedelta(seconds=5), "count": 0, "last_reset": datetime.now()},
+    "USERCAI": {"limit": 500, "reset_time": timedelta(seconds=1), "count": 0, "last_reset": datetime.now()}
 }
 
-# Check if the key is valid and not in cooldown period
 def check_key(key):
     if not key:
-        key = "GakModalYa"
+        key = "GUESTAI"
     if key in KEYS:
         now = datetime.now()
-        last_used = KEYS[key]['last_used']
-        cooldown = timedelta(seconds=KEYS[key]['cooldown'])
-        
-        if now - last_used >= cooldown:
-            KEYS[key]['last_used'] = now
+        key_info = KEYS[key]
+
+        # Reset the count if the reset time has passed
+        if now - key_info['last_reset'] >= key_info['reset_time']:
+            key_info['count'] = 0
+            key_info['last_reset'] = now
+
+        if key_info['count'] < key_info['limit']:
+            key_info['count'] += 1
             return True
     return False
 
@@ -49,7 +50,7 @@ def search_character():
     key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
-        return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
+        return jsonify({'error': 'Valid key is required or rate limit exceeded'}), 403
 
     query = request.args.get('q', '')
     if not query:
@@ -68,7 +69,7 @@ def new_chat():
     key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
-        return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
+        return jsonify({'error': 'Valid key is required or rate limit exceeded'}), 403
 
     char_id = request.args.get('q', '')
     if not char_id:
@@ -87,7 +88,7 @@ def trending_characters():
     key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
-        return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
+        return jsonify({'error': 'Valid key is required or rate limit exceeded'}), 403
 
     try:
         trending = client.character.trending()
@@ -101,7 +102,7 @@ def rec_characters():
     key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
-        return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
+        return jsonify({'error': 'Valid key is required or rate limit exceeded'}), 403
 
     try:
         rec = client.character.recommended()
@@ -115,7 +116,7 @@ def info_character():
     key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
-        return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
+        return jsonify({'error': 'Valid key is required or rate limit exceeded'}), 403
 
     char_id = request.args.get('id', '')
     if not char_id:
@@ -134,7 +135,7 @@ def cai_chat():
     key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
-        return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
+        return jsonify({'error': 'Valid key is required or rate limit exceeded'}), 403
 
     char_id = request.args.get('charid', '')
     message = request.args.get('message', '')
@@ -165,9 +166,6 @@ def cai_chat():
         logging.exception("Error during chat interaction")
         return jsonify({'error': str(e)}), 500
 
-@app.route('/key')
-def api_key():
-    return render_template('key.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

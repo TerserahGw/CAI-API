@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template_string
+from flask import Flask, jsonify, request, render_template
 from characterai import PyCAI
 from datetime import datetime, timedelta
 import logging
@@ -12,20 +12,22 @@ logging.basicConfig(level=logging.DEBUG)
 
 # Define keys and their cooldown periods (in seconds)
 KEYS = {
-    "GakModalYa": {"cooldown": 60, "last_used": datetime.min},  # 1 minute cooldown
+    "GakModalYa": {"cooldown": 90, "last_used": datetime.min},
     "PunyaOwnNihBos": {"cooldown": 0, "last_used": datetime.min},  # No cooldown
-    "CAI2024": {"cooldown": 10, "last_used": datetime.min},
+    "CAI2024": {"cooldown": 30, "last_used": datetime.min},
     "UPPremiumCAI": {"cooldown": 2, "last_used": datetime.min}
 }
 
 # Check if the key is valid and not in cooldown period
 def check_key(key):
+    if not key:
+        key = "GakModalYa"
     if key in KEYS:
         now = datetime.now()
         last_used = KEYS[key]['last_used']
         cooldown = timedelta(seconds=KEYS[key]['cooldown'])
         
-        if key == "PunyaOwnNihBos" or now - last_used >= cooldown:
+        if now - last_used >= cooldown:
             KEYS[key]['last_used'] = now
             return True
     return False
@@ -42,69 +44,9 @@ def home():
 def api():
     return render_template('home.html')
 
-@app.route('/key')
-def list_keys():
-    now = datetime.now()
-    keys_status = {
-        key: {
-            "cooldown": KEYS[key]['cooldown'],
-            "last_used": KEYS[key]['last_used'],
-            "next_available": KEYS[key]['last_used'] + timedelta(seconds=KEYS[key]['cooldown'])
-        }
-        for key in KEYS
-    }
-    
-    table_html = """
-    <html>
-    <head>
-        <title>API Keys</title>
-        <style>
-            table {
-                width: 50%;
-                border-collapse: collapse;
-                margin: 50px auto;
-                font-family: Arial, sans-serif;
-                font-size: 18px;
-            }
-            th, td {
-                padding: 12px;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
-            }
-            th {
-                background-color: #f2f2f2;
-            }
-        </style>
-    </head>
-    <body>
-        <h2 style="text-align: center;">API Keys and Cooldown Periods</h2>
-        <table>
-            <tr>
-                <th>Key</th>
-                <th>Cooldown (seconds)</th>
-                <th>Last Used</th>
-                <th>Next Available</th>
-            </tr>
-    """
-    for key, status in keys_status.items():
-        table_html += f"""
-            <tr>
-                <td>{key}</td>
-                <td>{status['cooldown']}</td>
-                <td>{status['last_used']}</td>
-                <td>{status['next_available']}</td>
-            </tr>
-        """
-    table_html += """
-        </table>
-    </body>
-    </html>
-    """
-    return render_template_string(table_html)
-
 @app.route('/api/search')
 def search_character():
-    key = request.args.get('key', 'GakModalYa')  # Default to GakModalYa if no key provided
+    key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
         return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
@@ -123,7 +65,7 @@ def search_character():
 
 @app.route('/api/newchat')
 def new_chat():
-    key = request.args.get('key', 'GakModalYa')  # Default to GakModalYa if no key provided
+    key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
         return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
@@ -142,7 +84,7 @@ def new_chat():
 
 @app.route('/api/trending')
 def trending_characters():
-    key = request.args.get('key', 'GakModalYa')  # Default to GakModalYa if no key provided
+    key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
         return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
@@ -156,7 +98,7 @@ def trending_characters():
 
 @app.route('/api/rec')
 def rec_characters():
-    key = request.args.get('key', 'GakModalYa')  # Default to GakModalYa if no key provided
+    key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
         return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
@@ -170,7 +112,7 @@ def rec_characters():
 
 @app.route('/api/info')
 def info_character():
-    key = request.args.get('key', 'GakModalYa')  # Default to GakModalYa if no key provided
+    key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
         return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
@@ -189,7 +131,7 @@ def info_character():
 
 @app.route('/api/cai')
 def cai_chat():
-    key = request.args.get('key', 'GakModalYa')  # Default to GakModalYa if no key provided
+    key = request.args.get('key')
     if not check_key(key):
         logging.warning(f"Invalid or missing key: {key}")
         return jsonify({'error': 'Valid key is required or cooldown period has not passed'}), 403
@@ -222,6 +164,10 @@ def cai_chat():
     except Exception as e:
         logging.exception("Error during chat interaction")
         return jsonify({'error': str(e)}), 500
+
+@app.route('/key')
+def api_key():
+    return render_template('key.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
